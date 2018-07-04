@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app>
     <v-navigation-drawer
       :mini-variant.sync="miniVariant"
       v-model="drawer"
@@ -18,6 +18,7 @@
           <v-list-tile-action>
             <v-icon v-html="item.icon"/>
           </v-list-tile-action>
+
           <v-list-tile-content>
             <v-list-tile-title v-text="item.title"/>
           </v-list-tile-content>
@@ -25,10 +26,16 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-toolbar :clipped-left="clipped" fixed app>
+    <v-toolbar :clipped-left="clipped" fixed app color="accent" dark>
       <v-toolbar-title v-text="title"/>
 
       <v-spacer/>
+
+      <v-toolbar-items>
+        <v-btn to="/login" flat>
+          Войти
+        </v-btn>
+      </v-toolbar-items>
 
       <v-btn
         icon
@@ -42,11 +49,14 @@
 
     <v-content>
       <v-container>
-        <nuxt />
+        <main>
+          <nuxt />
+        </main>
+        
       </v-container>
     </v-content>
 
-    <v-footer class="footer" fixed app>
+    <v-footer class="footer" fixed app color="accent" dark>
       <v-spacer/>
       <span class="mr-4">Автор:
         <a href="https://shining-present.ru" target="_blank">Filipp Zhuravlev</a>
