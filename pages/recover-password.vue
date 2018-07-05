@@ -5,7 +5,6 @@
         <v-text-field
           v-model="email"
           :error-messages="emailErrors"
-          :counter="20"
           label="Email"
           autocomplete="email"
           required

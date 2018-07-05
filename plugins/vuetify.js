@@ -10,7 +10,8 @@ import {
   VIcon,
   VGrid,
   VToolbar,
-  VTextField
+  VTextField,
+  VSubheader
 } from "vuetify"
 
 // import colors from 'vuetify/es5/util/colors'
@@ -26,7 +27,8 @@ Vue.use(Vuetify, {
     VIcon,
     VGrid,
     VToolbar,
-    VTextField
+    VTextField,
+    VSubheader
   },
 
   theme: {

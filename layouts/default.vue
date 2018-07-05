@@ -1,50 +1,62 @@
 <template>
   <v-app>
     <v-navigation-drawer
-      :mini-variant.sync="miniVariant"
       v-model="drawer"
+      class="hidden-sm-and-up"
       fixed
-      app
+      temporary
       right
     >
       <v-list>
         <v-list-tile
-          v-for="(item, i) in items"
-          :to="item.to"
-          :key="i"
+          v-for="(link, index) in navigation"
+          :to="link.to"
+          :key="index"
           router
           exact
         >
           <v-list-tile-action>
-            <v-icon v-html="item.icon"/>
+            <v-icon v-html="link.icon"/>
           </v-list-tile-action>
 
           <v-list-tile-content>
-            <v-list-tile-title v-text="item.title"/>
+            <v-list-tile-title v-text="link.title"/>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
 
     <v-toolbar :clipped-left="clipped" fixed app color="accent" dark>
-      <v-toolbar-title v-text="title"/>
+      <v-toolbar-title>
+        <router-link to="/" tag="span" router style="cursor: pointer;">
+          {{ title }}
+        </router-link>
+      </v-toolbar-title>
 
       <v-spacer/>
 
-      <v-toolbar-items>
+      <v-toolbar-items v-if="!$store.state.user.isLogged" class="hidden-xs-only">
         <v-btn to="/login" flat>
           Войти
         </v-btn>
       </v-toolbar-items>
+      <v-toolbar-items v-else class="hidden-xs-only">
+        <v-btn v-for="(link, index) in navigation"
+               :key="index"
+               :to="link.to" 
+               flat
+        >
+          <v-list-tile-action>
+            <v-icon v-html="link.icon"/>
+          </v-list-tile-action>
 
-      <v-btn
-        icon
-        @click.stop="miniVariant = !miniVariant"
-      >
-        <v-icon v-html="miniVariant ? 'chevron_left' : 'chevron_right'"/>
-      </v-btn>
+          <v-list-tile-content>
+            <v-list-tile-title v-text="link.title"/>
+          </v-list-tile-content>
+        </v-btn>
+      </v-toolbar-items>
 
-      <v-toolbar-side-icon @click="drawer = !drawer"/>
+      <v-toolbar-side-icon class="hidden-sm-and-up" @click="drawer = !drawer"/>
     </v-toolbar>
 
     <v-content>
@@ -70,11 +82,16 @@ export default {
   data() {
     return {
       clipped: false,
-      drawer: true,
+      drawer: false,
       fixed: false,
-      items: [
-        { icon: "apps", title: "Welcome", to: "/" },
-        { icon: "bubble_chart", title: "Inspire", to: "/inspire" }
+      navigation: [
+        { icon: "apps", title: "Новости", to: "/" },
+        {
+          icon: "person_outline",
+          title: "Личная кабинет",
+          to: "/personal-room"
+        },
+        { icon: "chat", title: "Чат", to: "/chat" }
       ],
       miniVariant: false,
       right: true,

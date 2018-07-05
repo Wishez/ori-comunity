@@ -73,7 +73,12 @@ export default {
 
   methods: {
     submit() {
-      console.log("Submit")
+      if (this.username) {
+        this.$store.state.user.userId = "1234"
+        this.$store.state.user.username = this.username
+        this.$store.commit("user/setLoginState", true)
+        this.$router.push({ path: "/" })
+      }
     }
   }
 }

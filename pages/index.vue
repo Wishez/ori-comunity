@@ -28,3 +28,12 @@
     </v-flex>
   </v-layout>
 </template>
+
+<script>
+export default {
+  name: "Index",
+  beforeMount() {
+    console.log(this.$store.state.user.isLogged)
+  }
+}
+</script>
