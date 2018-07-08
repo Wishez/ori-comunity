@@ -1,6 +1,12 @@
 <template>
-  <v-layout column justify-center align-center>    
-    <v-flex xs12 sm8 md6>
+  <v-layout 
+    column 
+    justify-center 
+    align-center>    
+    <v-flex 
+      xs12 
+      sm8 
+      md6>
       <form>
         <v-text-field
           v-model="username"
@@ -25,15 +31,22 @@
 
         <v-btn @click="submit">Войти</v-btn>
 
-        <v-btn flat to="/recover-password">Напомнить пароль</v-btn>
+        <v-btn 
+          flat 
+          to="/recover-password">Напомнить пароль</v-btn>
       </form>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-import { validationMixin } from "vuelidate"
-import { required, maxLength, minLength, email } from "vuelidate/lib/validators"
+import { validationMixin } from "vuelidate";
+import {
+  required,
+  maxLength,
+  minLength,
+  email
+} from "vuelidate/lib/validators";
 
 export default {
   name: "Login",
@@ -48,38 +61,38 @@ export default {
   },
   computed: {
     usernameErrors() {
-      const errors = []
+      const errors = [];
 
-      if (!this.$v.username.$dirty) return errors
+      if (!this.$v.username.$dirty) return errors;
 
       !this.$v.username.maxLength &&
-        errors.push("Логин или e-mail не могут превышать 90 символов")
+        errors.push("Логин или e-mail не могут превышать 90 символов");
       !this.$v.username.required &&
-        errors.push("Нам необходим ваше имя пользователя")
+        errors.push("Нам необходим ваше имя пользователя");
 
-      return errors
+      return errors;
     },
     passwordErrors() {
-      const errors = []
+      const errors = [];
 
-      if (!this.$v.password.$dirty) return errors
+      if (!this.$v.password.$dirty) return errors;
 
       !this.$v.password.required &&
-        errors.push("Пароль - это ключ к вашему аккаунту")
+        errors.push("Пароль - это ключ к вашему аккаунту");
 
-      return errors
+      return errors;
     }
   },
 
   methods: {
     submit() {
       if (this.username) {
-        this.$store.state.user.userId = "1234"
-        this.$store.state.user.username = this.username
-        this.$store.commit("user/setLoginState", true)
-        this.$router.push({ path: "/" })
+        this.$store.state.user.userId = "1234";
+        this.$store.state.user.username = this.username;
+        this.$store.commit("user/setLoginState", true);
+        this.$router.push({ path: "/" });
       }
     }
   }
-}
+};
 </script>

@@ -1,7 +1,15 @@
 <template>
-  <v-layout column justify-center align-center>    
-    <v-flex xs12 sm8 md12>
-      <h2 v-if="currentUsername" class="mb-5">Добро пожаловать, {{ currentUsername }}!</h2>
+  <v-layout 
+    column 
+    justify-center 
+    align-center>    
+    <v-flex 
+      xs12 
+      sm8 
+      md12>
+      <h2 
+        v-if="currentUsername" 
+        class="mb-5">Добро пожаловать, {{ currentUsername }}!</h2>
 
       <form>
         <v-text-field
@@ -79,14 +87,14 @@
 </template>
 
 <script>
-import { validationMixin } from "vuelidate"
+import { validationMixin } from "vuelidate";
 import {
   required,
   maxLength,
   minLength,
   email,
   sameAs
-} from "vuelidate/lib/validators"
+} from "vuelidate/lib/validators";
 
 export default {
   name: "Login",
@@ -108,50 +116,50 @@ export default {
   },
   computed: {
     user() {
-      return this.$store.state.user
+      return this.$store.state.user;
     },
     userId() {
-      return this.user.userId
+      return this.user.userId;
     },
     currentUsername() {
-      return this.user.username
+      return this.user.username;
     },
 
     usernameErrors() {
-      const errors = []
+      const errors = [];
 
-      if (!this.$v.username.$dirty) return errors
+      if (!this.$v.username.$dirty) return errors;
 
       !this.$v.username.maxLength &&
-        errors.push("Логин или e-mail не могут превышать 90 символов")
+        errors.push("Логин или e-mail не могут превышать 90 символов");
       !this.$v.username.required &&
-        errors.push("Нам необходим ваше имя пользователя")
+        errors.push("Нам необходим ваше имя пользователя");
 
-      return errors
+      return errors;
     },
     passwordErrors() {
-      const errors = []
+      const errors = [];
 
-      if (!this.$v.newPassword.$dirty) return errors
+      if (!this.$v.newPassword.$dirty) return errors;
 
       !this.$v.newPassword.required &&
-        errors.push("Пароль - это ключ к вашему аккаунту")
+        errors.push("Пароль - это ключ к вашему аккаунту");
 
-      return errors
+      return errors;
     }
   },
 
   beforeMount() {
     this.$nextTick(() => {
-      this.email = this.user.email
-    })
+      this.email = this.user.email;
+    });
   },
 
   methods: {
     submit() {
-      this.$store.commit("user/setLoginState", true)
-      console.log("Submit")
+      this.$store.commit("user/setLoginState", true);
+      console.log("Submit");
     }
   }
-}
+};
 </script>

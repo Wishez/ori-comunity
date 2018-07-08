@@ -1,4 +1,4 @@
-import Vue from "vue"
+import Vue from "vue";
 import {
   Vuetify,
   VApp,
@@ -12,7 +12,7 @@ import {
   VToolbar,
   VTextField,
   VSubheader
-} from "vuetify"
+} from "vuetify";
 
 // import colors from 'vuetify/es5/util/colors'
 
@@ -40,4 +40,4 @@ Vue.use(Vuetify, {
     success: "#4CAF50",
     warning: "#FFC107"
   }
-})
+});

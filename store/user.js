@@ -6,10 +6,10 @@ export const state = () => ({
   userId: "",
   first_name: "",
   last_name: ""
-})
+});
 
 export const mutations = {
   setLoginState(state, isLogged) {
-    state.isLogged = isLogged
+    state.isLogged = isLogged;
   }
-}
+};
