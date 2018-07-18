@@ -47,6 +47,7 @@ import {
   minLength,
   email
 } from "vuelidate/lib/validators";
+import { setPageTitle } from "@/constants/helpers";
 
 export default {
   name: "Login",
@@ -83,7 +84,9 @@ export default {
       return errors;
     }
   },
-
+  created() {
+    setPageTitle("Страница входа");
+  },
   methods: {
     submit() {
       if (this.username) {

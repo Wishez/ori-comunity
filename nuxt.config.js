@@ -56,8 +56,13 @@ module.exports = {
       ]
     },
     vendor: [
-      '~/plugins/vuetify.js'
+      '~/plugins/vuetify.js',
+      '~/plugins/vue-resource.js'
     ],
+    plguins: [{
+      src: '~/plugins/vue-resource.js',
+      ssr: false
+    }],
     extractCSS: true,
     /*
      ** Run ESLint on save
@@ -78,7 +83,7 @@ module.exports = {
       if (ctx.isServer) {
         config.externals = [
           nodeExternals({
-            whitelist: [/^vuetify/]
+            whitelist: [/^vuetify/, /^vue-resource/]
           })
         ]
       }

@@ -1,47 +1,45 @@
 <template>
-  <news
+  <news 
+    v-if="isLoaded"
     :title="article.title"
     :content="article.content"
     :image="article.image"
-    :published-date="article.published_date"/>
+    :published-date="new Date(article.created_at)"/>
+  <v-layout 
+    v-else
+    row 
+    wrap
+    justify-center 
+    align-center>
+    Loading...
+  </v-layout>
 </template>
 
 <script>
 import News from "@/components/News/News";
+import { setPageTitle } from "@/constants/helpers";
 import cat from "~/assets/images/cat.jpg";
 
 export default {
   name: "NewsPage",
-  delimiters: [],
   components: { News },
-  filters: {},
-  props: {
-    slug: {
-      type: String,
-      required: true
-    }
-  },
   data: () => ({
-    article: {
-      title: "Hello World!",
-      published_date: Date.now(),
-      content: "<p>Hello World! It's not announce text.</p>",
-      image: cat
-    }
+    article: false,
+    isLoaded: false
   }),
-  computed: {},
-  beforeMount() {
-    console.log(this.slug);
+  computed: {
+    slug() {
+      return this.$route.params.slug;
+    }
   },
-  mounted() {},
-  beforeCreate() {},
-  created() {},
-  updated() {},
-  beforeDestroy() {},
-  destroyed() {},
-  methods: {},
-  fetch() {},
-  beforeUpdated() {}
+  beforeMount() {},
+  created() {
+    this.$http.get(`news/${this.slug}`).then(data => {
+      this.article = data.body;
+      this.isLoaded = true;
+      setPageTitle(this.article.page_title);
+    });
+  }
 };
 </script>
 
