@@ -17,7 +17,7 @@ module.exports = {
       {
         hid: 'description',
         name: 'description',
-        content: 'Nuxt.js + Vuetify.js project'
+        content: 'The site for the oriflame\'s people.'
       }
     ],
     link: [{
@@ -33,8 +33,10 @@ module.exports = {
   },
   plugins: ['~/plugins/vuetify.js', '~/filters/formateDate.js'],
   css: [
-    '~/assets/style/app.styl'
+    '~/assets/style/app.styl',
+    '~/assets/sass/main.sass',
   ],
+  mode: "spa",
   /*
    ** Customize the progress bar color
    */
@@ -57,7 +59,8 @@ module.exports = {
     },
     vendor: [
       '~/plugins/vuetify.js',
-      '~/plugins/vue-resource.js'
+      '~/plugins/vue-resource.js',
+      '~/plugins/globalComponents.js'
     ],
     plguins: [{
       src: '~/plugins/vue-resource.js',
