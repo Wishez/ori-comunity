@@ -3,8 +3,8 @@
     xs12 
     sm6 
     lg4
-  >
-    <v-card>
+  >  
+    <v-card class="preview">
       <v-card-media 
         v-if="image"
         :src="image"
@@ -66,4 +66,17 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+@import '~/assets/sass/conf/_breakpoints.sass'
+
+.preview
+  min-height: 435px
+  margin-top: 1.5rem
+  margin-bottom: 1.5rem
+
+  @include breakpoint($phone)
+    margin-left: 1.5rem
+    margin-right: 1.5rem
+
+  // @include breakpoint($phone-less)
+
 </style>
