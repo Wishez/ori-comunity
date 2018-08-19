@@ -32,7 +32,7 @@ module.exports = {
       }
     }],
     "no-multi-str": 2,
-    "camelcase": 1,
+    "camelcase": 0,
     "eol-last": 1,
     "indent": [2, 2, {
       "SwitchCase": 1,
