@@ -3,7 +3,7 @@
     v-if="isLoaded"
     :title="article.title"
     :content="article.content"
-    :image="article.image"
+    :image="article.preview.image"
     :published-date="new Date(article.created_at)"/>
   <v-layout 
     v-else
@@ -11,14 +11,13 @@
     wrap
     justify-center 
     align-center>
-    Loading...
+    <app-preloader/>
   </v-layout>
 </template>
 
 <script>
 import News from "@/components/News/News";
 import { setPageTitle } from "@/constants/helpers";
-import cat from "~/assets/images/cat.jpg";
 
 export default {
   name: "NewsPage",
