@@ -77,6 +77,4 @@ export default {
     margin-left: 1.5rem
     margin-right: 1.5rem
 
-  // @include breakpoint($phone-less)
-
 </style>
