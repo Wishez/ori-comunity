@@ -58,7 +58,7 @@
 
 <script>
 export default {
-  name: "Preloader"
+  name: "AppPreloader"
 };
 </script>
 
