@@ -60,7 +60,8 @@ module.exports = {
     vendor: [
       '~/plugins/vuetify.js',
       '~/plugins/vue-resource.js',
-      '~/plugins/globalComponents.js'
+      '~/plugins/globalComponents.js',
+      '~/plugins/lodash.js',
     ],
     plguins: [{
       src: '~/plugins/vue-resource.js',

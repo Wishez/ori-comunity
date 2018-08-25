@@ -7,7 +7,9 @@
       xs12 
       sm8 
       md6>
-      <form>
+      <form 
+        class="form" 
+        @submit.prevent="submit">
         <v-text-field
           v-model="username"
           :error-messages="usernameErrors"
@@ -28,12 +30,23 @@
           @input="$v.password.$touch()"
           @blur="$v.password.$touch()"
         />
+        <div>
+          <v-btn 
+            type="submit"
+            color="success">Войти</v-btn>
+          <v-btn 
+            color="primary"
+            flat
+            to="/registration">Первый раз на сайте</v-btn>
+          <v-spacer/>
+          <v-btn 
+            flat 
+            to="/recover-password">Напомнить пароль</v-btn>
 
-        <v-btn @click="submit">Войти</v-btn>
-
-        <v-btn 
-          flat 
-          to="/recover-password">Напомнить пароль</v-btn>
+          
+        </div>
+        
+        
       </form>
     </v-flex>
   </v-layout>

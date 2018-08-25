@@ -7,7 +7,9 @@
       xs12 
       sm8 
       md6>
-      <form>
+      <form 
+        class="form" 
+        @submit.prevent="submit">
         <v-text-field
           v-model="email"
           :error-messages="emailErrors"
@@ -18,8 +20,11 @@
           @blur="$v.email.$touch()"
         />
 
-        <v-btn @click="submit">Восстановить</v-btn>
         <v-btn 
+          type="submit"
+          color="success">Восстановить</v-btn>
+        <v-btn 
+          color="primary"
           flat 
           to="/login">Войти</v-btn>
       </form>
