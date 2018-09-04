@@ -4,7 +4,7 @@
     sm6 
     lg4
   >  
-    <v-card class="preview">
+    <v-card class="preview parent column">
       <v-card-media 
         v-if="image"
         :src="image"
@@ -22,10 +22,10 @@
 
       <v-card-text 
         v-if="announce" 
-        class="announce croppedText croppedText_6" 
+        class="announce text-cropped_lines text-cropped_lines-3 font-size_16" 
         v-html="announce"/>
 
-      <v-card-actions>
+      <v-card-actions class="margin-top_auto">
         <v-spacer/>
         <v-btn 
           :to="`/news/${slug}/`" 
@@ -69,7 +69,7 @@ export default {
 @import '~/assets/sass/conf/_breakpoints.sass'
 
 .preview
-  min-height: 435px
+  height: 465px
   margin-top: 1.5rem
   margin-bottom: 1.5rem
 
