@@ -6,7 +6,7 @@
     <v-flex 
       class="width_fill" 
       xs12>
-      <v-card>
+      <v-card class="baseVerticalOffsets singleNews margin_centered">
         <v-card-title class="headline">
           <h1 
             class="headline" 
@@ -20,7 +20,6 @@
           v-if="image"
           :src="image"
         />
-        <!-- height="200px" -->
 
         <v-card-text v-html="content"/>
 
@@ -77,4 +76,8 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+
+.singleNews
+  max-width: 90ch
+
 </style>
