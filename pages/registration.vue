@@ -5,7 +5,7 @@
     align-center>
   
     <v-flex 
-      class="registrationForm"
+      class="registrationForm baseVerticalOffsets"
       xs12 
       sm8 
       md6>

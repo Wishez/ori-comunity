@@ -8,7 +8,7 @@
       sm8 
       md6>
       <form 
-        class="form" 
+        class="form baseVerticalOffsets" 
         @submit.prevent="submit">
         <v-text-field
           v-model="username"
@@ -30,7 +30,7 @@
           @input="$v.password.$touch()"
           @blur="$v.password.$touch()"
         />
-        <div>
+        <div class="parent wrap row h-between margin-top_11">
           <v-btn 
             type="submit"
             color="success">Войти</v-btn>
@@ -38,8 +38,9 @@
             color="primary"
             flat
             to="/registration">Первый раз на сайте</v-btn>
-          <v-spacer/>
+          
           <v-btn 
+            class="margin_centered"
             flat 
             to="/recover-password">Напомнить пароль</v-btn>
 
@@ -102,12 +103,23 @@ export default {
   },
   methods: {
     submit() {
-      if (this.username) {
-        this.$store.state.user.userId = "1234";
-        this.$store.state.user.username = this.username;
-        this.$store.commit("user/setLoginState", true);
-        this.$router.push({ path: "/" });
-      }
+      const { username } = this;
+
+      this.$http
+        .get("user/login/", {
+          username,
+          password
+        })
+        .then(response => (response.status === "OK" ? response.body : false))
+        .then(userData => {
+          if (userData) {
+            this.$store.dispatch("user/login", userData);
+            this.$router.push({ path: "/" });
+          }
+        })
+        .catch(() => {
+          console.log("Not logged");
+        });
     }
   }
 };
