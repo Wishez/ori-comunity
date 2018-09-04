@@ -97,6 +97,17 @@
             <v-list-tile-title v-text="link.title"/>
           </v-list-tile-content>
         </v-btn>
+        <v-btn
+          flat
+        >
+          <v-icon 
+            left 
+            v-html="'exit_to_app'"/>
+
+          <v-list-tile-content>
+            <v-list-tile-title v-text="'Выйти'"/>
+          </v-list-tile-content>
+        </v-btn>
       </v-toolbar-items>
 
       <v-btn 
