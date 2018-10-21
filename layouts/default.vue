@@ -55,9 +55,9 @@
 
     <v-toolbar 
       :clipped-left="clipped" 
+      color="primary" 
       fixed 
       app 
-      color="accent" 
       dark>
       <v-toolbar-title>
         <router-link 
@@ -99,6 +99,7 @@
         </v-btn>
         <v-btn
           flat
+          @click="logout"
         >
           <v-icon 
             left 
@@ -139,11 +140,12 @@
       class="footer" 
       fixed 
       app 
-      color="accent" 
+      color="secondary" 
       dark>
       <v-spacer/>
       <span class="mr-4">Автор:
         <a 
+          class="color_black"
           href="https://shining-present.ru" 
           target="_blank">Filipp Zhuravlev</a>
       </span>
@@ -176,6 +178,11 @@ export default {
   computed: {
     user() {
       return this.$store.state.user;
+    }
+  },
+  methods: {
+    logout() {
+      this.$http.get();
     }
   }
 };

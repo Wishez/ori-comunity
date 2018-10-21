@@ -19,6 +19,7 @@
           @input="$v.username.$touch()"
           @blur="$v.username.$touch()"
         />
+
         <v-text-field
           v-model="password"
           :error-messages="passwordErrors"
@@ -30,24 +31,31 @@
           @input="$v.password.$touch()"
           @blur="$v.password.$touch()"
         />
+
         <div class="parent wrap row h-between margin-top_11">
           <v-btn 
             type="submit"
-            color="success">Войти</v-btn>
+            color="success"
+          >
+            Войти
+          </v-btn>
+
           <v-btn 
             color="primary"
             flat
-            to="/registration">Первый раз на сайте</v-btn>
+            to="/registration"
+          >
+            Первый раз на сайте
+          </v-btn>
           
           <v-btn 
             class="margin_centered"
             flat 
-            to="/recover-password">Напомнить пароль</v-btn>
-
-          
+            to="/recover-password"
+          >
+            Напомнить пароль
+          </v-btn>
         </div>
-        
-        
       </form>
     </v-flex>
   </v-layout>
@@ -83,10 +91,11 @@ export default {
       !this.$v.username.maxLength &&
         errors.push("Логин или e-mail не могут превышать 90 символов");
       !this.$v.username.required &&
-        errors.push("Нам необходим ваше имя пользователя");
+        errors.push("Нам необходимо ваше имя пользователя");
 
       return errors;
     },
+
     passwordErrors() {
       const errors = [];
 
@@ -98,27 +107,29 @@ export default {
       return errors;
     }
   },
+
   created() {
     setPageTitle("Страница входа");
   },
+
   methods: {
     submit() {
-      const { username } = this;
+      const { username, password } = this;
 
       this.$http
-        .get("user/login/", {
-          username,
-          password
-        })
-        .then(response => (response.status === "OK" ? response.body : false))
+        .post("user/login", { username, password })
+        .then(
+          ({ body: { meta, data } }) => (meta.status === "OK" ? data : false)
+        )
         .then(userData => {
           if (userData) {
+            console.log(userData);
             this.$store.dispatch("user/login", userData);
             this.$router.push({ path: "/" });
           }
         })
-        .catch(() => {
-          console.log("Not logged");
+        .catch(error => {
+          console.log(`Not logged. ${error}`);
         });
     }
   }

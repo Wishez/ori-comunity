@@ -4,9 +4,10 @@ export const state = () => ({
   username: "",
   avatar: "",
   email: "",
-  userId: "",
+  uuid: "",
   first_name: "",
-  last_name: ""
+  last_name: "",
+  middle_name: ""
 });
 
 export const mutations = {
@@ -24,16 +25,16 @@ export const actions = {
 
   login(
     { commit, state },
-    { username, userId, avatar, first_name, last_name, email }
+    { username, uuid, avatar, first_name, last_name, email }
   ) {
     const updatedState = {
+      ...state,
+      userId: uuid,
       username,
-      userId,
       avatar,
       first_name,
       last_name,
-      email,
-      ...state
+      email
     };
 
     state = updatedState;

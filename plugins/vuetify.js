@@ -32,9 +32,9 @@ Vue.use(Vuetify, {
   },
 
   theme: {
-    primary: "#20B1E8",
-    secondary: "#DF3238", //#2C3844
-    accent: "#2C3844",
+    primary: "#af335e",
+    secondary: "#0f0407",
+    accent: "#e35419",
     error: "#FF5252",
     info: "#2196F3",
     success: "#4CAF50",

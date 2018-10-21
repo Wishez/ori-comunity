@@ -139,6 +139,7 @@ export default {
 
       return errors;
     },
+
     passwordErrors() {
       const errors = [];
 
