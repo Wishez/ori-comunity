@@ -9,15 +9,14 @@
     >
       <v-layout
         v-if="$store.state.user.isLogged"
-        align-center
         row
-        spacer
+        align-center
+        justify-space-between
       >
         <v-flex 
-          slot="header"
-          xs4 
-          sm2 
-          md1>
+          slot="header" 
+          xs6
+        >
           <v-avatar
             slot="activator"
             size="36px"
@@ -27,10 +26,24 @@
               src="user.avatar"
               alt="Avatar"
             >
-            <v-icon
-              v-else
-            >person_outline</v-icon>
+
+            <v-icon v-else>person_outline</v-icon>
           </v-avatar>
+        </v-flex>
+
+        <v-flex xs6>
+          <v-btn
+            flat
+            @click="logout"
+          >
+            <v-icon 
+              left 
+              v-html="'exit_to_app'"/>
+
+            <v-list-tile-content>
+              <v-list-tile-title v-text="'Выйти'"/>
+            </v-list-tile-content>
+          </v-btn>
         </v-flex>
       </v-layout>
 
@@ -80,6 +93,7 @@
           Войти
         </v-btn>
       </v-toolbar-items>
+
       <v-toolbar-items 
         v-else 
         class="hidden-xs-only">
@@ -97,6 +111,7 @@
             <v-list-tile-title v-text="link.title"/>
           </v-list-tile-content>
         </v-btn>
+
         <v-btn
           flat
           @click="logout"
@@ -117,6 +132,7 @@
         flat>
         <v-toolbar-side-icon @click="drawer = !drawer"/> 
       </v-btn>
+
       <v-btn 
         v-else 
         to="/login" 
@@ -124,7 +140,6 @@
         flat>
         Войти
       </v-btn>
-      
     </v-toolbar>
 
     <v-content>
@@ -143,6 +158,7 @@
       color="secondary" 
       dark>
       <v-spacer/>
+
       <span class="mr-4">Автор:
         <a 
           class="color_black"
@@ -164,7 +180,7 @@ export default {
         { icon: "apps", title: "Новости", to: "/" },
         {
           icon: "person_outline",
-          title: "Личная кабинет",
+          title: "Личный кабинет",
           to: "/personal-room"
         }
         // { icon: "chat", title: "Чат", to: "/chat" }
@@ -182,7 +198,9 @@ export default {
   },
   methods: {
     logout() {
-      this.$http.get();
+      this.drawer = false;
+      // this.$http.get("user/logout");
+      this.$store.dispatch("user/logout");
     }
   }
 };

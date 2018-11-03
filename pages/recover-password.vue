@@ -68,3 +68,8 @@ export default {
   }
 };
 </script>
+
+<style lang="sass" scoped>
+.v-subheader
+  margin-top: 1em
+</style>

@@ -57,6 +57,14 @@
           </v-btn>
         </div>
       </form>
+      <transition name="fade">
+      
+        <p 
+          v-if="response.isError" 
+          class="error--text">
+          {{ response.message }}
+        </p>
+      </transition>
     </v-flex>
   </v-layout>
 </template>
@@ -70,13 +78,19 @@ import {
   email
 } from "vuelidate/lib/validators";
 import { setPageTitle } from "@/constants/helpers";
+import {
+  handleRequest,
+  DEFAULT_ERROR_MESSAGE,
+  defaultResponse
+} from "@/constants/response";
 
 export default {
   name: "Login",
   mixins: [validationMixin],
   data: () => ({
-    username: "",
-    password: ""
+    username: "brus",
+    password: "12345",
+    response: { ...defaultResponse }
   }),
   validations: {
     username: { required, maxLength: maxLength(90), email },
@@ -117,20 +131,25 @@ export default {
       const { username, password } = this;
 
       this.$http
-        .post("user/login", { username, password })
-        .then(
-          ({ body: { meta, data } }) => (meta.status === "OK" ? data : false)
-        )
-        .then(userData => {
-          if (userData) {
-            console.log(userData);
-            this.$store.dispatch("user/login", userData);
+        .post("user/login/", { username, password })
+        .then(({ body }) => handleRequest(body))
+        .then(({ payload, message }) => {
+          if (payload) {
+            this.$store.dispatch("user/login", payload);
             this.$router.push({ path: "/" });
+          } else {
+            this.showErrorMessage(message);
           }
         })
-        .catch(error => {
-          console.log(`Not logged. ${error}`);
-        });
+        .catch(() => this.showErrorMessage(DEFAULT_ERROR_MESSAGE));
+    },
+
+    showErrorMessage(message) {
+      this.response = {
+        ...this.response,
+        message,
+        isError: true
+      };
     }
   }
 };

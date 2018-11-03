@@ -1,4 +1,4 @@
-export const state = () => ({
+const defaultState = {
   isLogged: false,
   isLoggining: false,
   username: "",
@@ -8,7 +8,9 @@ export const state = () => ({
   first_name: "",
   last_name: "",
   middle_name: ""
-});
+};
+
+export const state = () => ({ ...defaultState });
 
 export const mutations = {
   setLoginState(state, isLogged) {
@@ -17,7 +19,7 @@ export const mutations = {
 };
 
 export const actions = {
-  logout({ commit, state }, request) {
+  logout({ commit }) {
     const isLogged = false;
 
     commit("setLoginState", isLogged);
@@ -39,6 +41,6 @@ export const actions = {
 
     state = updatedState;
 
-    commit("user/setLoginState", true);
+    commit("setLoginState", true);
   }
 };

@@ -1,28 +1,48 @@
 <template>
-  <v-layout 
-    v-if="isLoaded"
-    class="newsLayout"
-    row 
-    wrap>
-    <news-preview 
-      v-for="(news, index) in newsList"
-      :key="index" 
-      :title="news.title"
-      :announce="news.announce"
-      :slug="news.slug"
-      :image="news.preview.image"
-      :published-date="new Date(news.created_at)"
-    />
-  </v-layout>
-  <v-layout 
-    v-else
-    row 
-    wrap
-    justify-center 
-    align-center>
-    <app-preloader/>
-  </v-layout>
-  
+  <transition name="fading">
+    <v-layout 
+      v-if="!$store.state.user.isLogged"
+      justify-center
+      class="baseVerticalOffsets"
+    >
+      <v-flex 
+        xs12 
+        md4>
+        <p>Пожалуйста, авторизуйтесь, чтобы увидеть свежие новости.
+          <v-btn 
+            to="/login" 
+            flat
+          >
+            Войти
+          </v-btn>
+        </p>
+      </v-flex>
+    </v-layout>
+
+    <v-layout 
+      v-else-if="isLoaded"
+      class="newsLayout"
+      row 
+      wrap>
+      <news-preview 
+        v-for="(news, index) in newsList"
+        :key="index" 
+        :title="news.title"
+        :announce="news.announce"
+        :slug="news.slug"
+        :image="news.preview.image"
+        :published-date="new Date(news.created_at)"
+      />
+    </v-layout>
+    <v-layout 
+      v-else
+      row 
+      wrap
+      justify-center 
+      align-center>
+      <app-preloader/>
+    </v-layout>
+  </transition>
 </template>
 
 <script>

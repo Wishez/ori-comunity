@@ -124,7 +124,11 @@
 <script>
 import { validationMixin } from "vuelidate";
 import { required, between, sameAs, maxLength } from "vuelidate/lib/validators";
-import { defaultResponse } from "~/constants/response";
+import {
+  defaultResponse,
+  handleRequest,
+  DEFAULT_ERROR_MESSAGE
+} from "~/constants/response";
 import { isSolidNumber } from "~/constants/validation";
 
 export default {
@@ -235,10 +239,6 @@ export default {
     }
   },
 
-  created() {
-    this.loginUser();
-  },
-
   methods: {
     submit() {
       switch (this.registrationStep) {
@@ -267,25 +267,25 @@ export default {
     checkConsultantNumber() {
       this.$http
         .get(`consultant/${this.consultantNumber}`)
-        .then(({ body: { meta, data } }) => (meta.status === "OK" ? data : ""))
-        .then(consultantInformation => {
+        .then(({ body }) => handleRequest(body))
+        .then(({ payload, message }) => {
           this.increaseQunatityAttemts();
 
-          if (!consultantInformation.isConsultantExists) {
+          const { isConsultantExists, isConsultantNotRegistered } =
+            payload || {};
+          if (!isConsultantExists) {
             const responseText = this.getResoponseText();
-            this.setResponseMessage(responseText);
+            this.setResponseMessage(responseText || message);
           } else {
             this.registrationStep = 2;
-            this.setConsultantInformation(consultantInformation);
+            this.setConsultantInformation(payload);
 
-            if (!consultantInformation.isConsultantNotRegistered) {
+            if (!isConsultantNotRegistered) {
               this.notifyAboutExistedAccount();
             }
           }
         })
-        .catch(() => {
-          this.showRequestError();
-        });
+        .catch(() => this.showRequestError(DEFAULT_ERROR_MESSAGE));
     },
 
     setConsultantInformation(information) {
@@ -305,25 +305,21 @@ export default {
       switch (this.quantityAttemtsToCheckConsultantNumber) {
         case 1: {
           responseText = "Упс. Мы не смогли найти ваш номер.";
-
           break;
         }
 
         case 2: {
           responseText = "Вы точно уверенны, что такой номер существует?";
-
           break;
         }
 
         case 3: {
           responseText = "Возможно, вам стоит обратиться к вашему споснору?";
-
           break;
         }
 
         case 4: {
           responseText = "Вам определённо стоит сделать это!";
-
           break;
         }
 
@@ -391,7 +387,7 @@ export default {
       this.isRegistered = true;
       this.registrationStep = 3;
       this.startTimerUntilLogining();
-      this.loginUser();
+      this.login();
     },
 
     startTimerUntilLogining() {
@@ -401,7 +397,7 @@ export default {
       let passedSeconds = 0;
       const timer = () => {
         const delta = Date.now() - lastTime;
-        if (delta >= 1000 || !lastTime) {
+        if (delta >= delay || !lastTime) {
           if (passedSeconds < maxSeconds) {
             lastTime = Date.now();
             passedSeconds += 1;
@@ -418,24 +414,20 @@ export default {
       requestAnimationFrame(timer);
     },
 
-    loginUser() {
-      const { username = "potter", password = "1324" } = this;
+    login() {
+      const { username, password } = this;
 
       this.$http
         .post("user/login", { username, password })
-        .then(
-          ({ body: { meta, data } }) =>
-            meta.status === 200 ? data : this.showRequestError(meta.message)
-        )
-        .then(userData => {
-          if (userData) {
-            console.log(userData);
-            this.$store.dispatch("user/login", userData);
+        .then(({ body }) => handleRequest(body))
+        .then(({ payload, message }) => {
+          if (payload) {
+            this.$store.dispatch("user/login", payload);
+          } else {
+            this.showRequestError(message);
           }
         })
-        .catch(error => {
-          console.log(`Not logged. ${error}`);
-        });
+        .catch(() => this.showRequestError(DEFAULT_ERROR_MESSAGE));
     }
   }
 };
