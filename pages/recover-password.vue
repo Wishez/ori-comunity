@@ -3,8 +3,7 @@
     column 
     justify-center 
     align-center>    
-    <v-flex 
-      class="baseVerticalOffsets"
+    <v-flex
       xs12 
       sm8 
       md6>

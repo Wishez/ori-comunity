@@ -4,7 +4,6 @@
     justify-center 
     align-center>    
     <v-flex 
-      class="baseVerticalOffsets"
       xs12 
       sm8 
       md12>

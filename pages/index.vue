@@ -2,20 +2,26 @@
   <transition name="fading">
     <v-layout 
       v-if="!$store.state.user.isLogged"
-      justify-center
-      class="baseVerticalOffsets"
+      align-center
+      column
     >
       <v-flex 
         xs12 
         md4>
         <p>Пожалуйста, авторизуйтесь, чтобы увидеть свежие новости.
-          <v-btn 
-            to="/login" 
-            flat
-          >
-            Войти
-          </v-btn>
         </p>
+
+      </v-flex>
+      <v-flex 
+        xs12 
+        md4>
+        <v-btn 
+          to="/login"
+          color="accent"
+          class="mt-3 margin_centered"
+        >
+          Войти
+        </v-btn>
       </v-flex>
     </v-layout>
 

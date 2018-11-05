@@ -6,7 +6,7 @@
     <v-flex 
       class="width_fill" 
       xs12>
-      <v-card class="baseVerticalOffsets singleNews margin_centered">
+      <v-card class="singleNews margin_centered">
         <v-card-title class="headline">
           <h1 
             class="headline" 

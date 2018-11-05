@@ -130,3 +130,13 @@ img, figure
     
     @include breakpoint($tablet-less)
       padding-bottom: 1em
+
+main
+
+  @include breakpoint($phone)
+    padding-top: $s77
+    padding-bottom: $s144
+
+  @include breakpoint($phone-less)
+    padding-top: $s47
+    padding-bottom: $s77

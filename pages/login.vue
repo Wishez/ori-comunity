@@ -8,7 +8,7 @@
       sm8 
       md6>
       <form 
-        class="form baseVerticalOffsets" 
+        class="form" 
         @submit.prevent="submit">
         <v-text-field
           v-model="username"

@@ -69,9 +69,8 @@ export default {
 @import '~/assets/sass/conf/_breakpoints.sass'
 
 .preview
-  height: 465px
-  margin-top: 1.5rem
-  margin-bottom: 1.5rem
+  // height: 465px
+  margin: 0 1rem 2.618rem
 
   @include breakpoint($phone)
     margin-left: 1.5rem
