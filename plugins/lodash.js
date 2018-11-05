@@ -1,8 +1,10 @@
 import Vue from "vue";
 import isNumber from "lodash/isNumber";
+import debounce from "lodash/debounce";
 
 const _ = {
-  isNumber
+  isNumber,
+  debounce
 };
 
 const lodash = {
